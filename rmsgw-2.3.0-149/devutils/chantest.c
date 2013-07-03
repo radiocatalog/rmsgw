@@ -1,12 +1,12 @@
 /*
  *			c h a n t e s t . c
- * $Revision: 94 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2008 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -26,7 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char svnid[] = "$Id: chantest.c 94 2009-02-13 16:27:50Z eckertb $";
+static char svnid[] = "$Id: chantest.c 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include <stdio.h>
@@ -42,6 +42,14 @@ main(int argc, char *argv[])
      setchanfile("channels.xml");
 
      while ((ch = getchanent()) != NULL) {
+	  /*
+	   * if no service code is defined, default it
+	   */
+	  if (ch->ch_servicecode == NULL || strlen(ch->ch_servicecode) <= 0) {
+	       ch->ch_servicecode = strdup(DFLT_SERVICECODE); /* need to allocate the string,
+								   since the library will free
+								   this on subsequent calls */
+	  }
 	  printf("Found channel '%s' (active=%s)\n",
 		 ch->ch_name, ch->ch_active ? ch->ch_active : "(null)");
 	  printf("\t      basecall = %s\n", ch->ch_basecall);
@@ -57,6 +65,7 @@ main(int argc, char *argv[])
 	  printf("\t     direction = %s\n", ch->ch_direction);
 	  printf("\t         hours = %s\n", ch->ch_hours);
 	  printf("\tgroupreference = %s\n", ch->ch_groupreference);
+	  printf("\t   servicecode = %s\n", ch->ch_servicecode);
 	  printf("\t statuschecker = %s\n", ch->ch_statuschecker);
      }
 
@@ -78,6 +87,7 @@ main(int argc, char *argv[])
 	  printf("\t     direction = %s\n", ch->ch_direction);
 	  printf("\t         hours = %s\n", ch->ch_hours);
 	  printf("\tgroupreference = %s\n", ch->ch_groupreference);
+	  printf("\t   servicecode = %s\n", ch->ch_servicecode);
 	  printf("\t statuschecker = %s\n", ch->ch_statuschecker);
      }
 

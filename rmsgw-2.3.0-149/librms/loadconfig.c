@@ -1,12 +1,12 @@
 /*
  *			l o a d c o n f i g . c
- * $Revision: 131 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2008 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -26,7 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char	svnid[] = "$Id: loadconfig.c 131 2011-11-28 19:31:57Z eckertb $";
+static char	svnid[] = "$Id: loadconfig.c 149 2013-07-03 02:01:55Z eckertb $";
 #endif
 
 #include <stdio.h>
@@ -50,6 +50,8 @@ static char *logicals[] = {
      "LOGMASK",
      "UDPMSGHOST",
      "UDPMSGPORT",
+     "AUTHMODE",
+     "GWPASSWD",
      NULL
 };
 
@@ -65,7 +67,9 @@ static char **physicals[] = {
      &conf.logfacility,
      &conf.logmask,
      &conf.udpmsghost,
-     &conf.udpmsgport
+     &conf.udpmsgport,
+     &conf.authmode,
+     &conf.gwpasswd
 };
      
 

@@ -1,12 +1,12 @@
 /*
  *			g a t e w a y . c
- * $Revision: 131 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2009 Hans-J. Barthen - DL5DI
- * Copyright (c) 2009 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -26,7 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char svnid[] = "$Id: gateway.c 131 2011-11-28 19:31:57Z eckertb $";
+static char svnid[] = "$Id: gateway.c 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include <stdlib.h>
@@ -76,7 +76,7 @@ static unsigned char buf[BUFLEN];
  *
  *  gateway conversation between connection rf client and CMS
  */
-struct ust gateway(int s, char *gwcall, char *usercall,
+struct ust gateway(int s, config *cfg, char *usercall,
 		   char *passwd, channel *chnl)
 {
      fd_set read_fd;
@@ -101,14 +101,14 @@ struct ust gateway(int s, char *gwcall, char *usercall,
      /*
       * perform login "chat"
       */
-     sbset_gw_state(rms_stat, GW_LOGIN, gwcall);
-     if (cmslogin(s, chnl, usercall, passwd) < 0) {
+     sbset_gw_state(rms_stat, GW_LOGIN, cfg->gwcall);
+     if (cmslogin(s, cfg, chnl, usercall, passwd) < 0) {
 	  syslog(LOG_ERR, "ERROR: CMS login FAILED!");
 	  rc.errcode = ERR_GW_LOGIN;
 	  return(rc);
      }
 
-     sbset_gw_state(rms_stat, GW_LOGGEDIN, gwcall);
+     sbset_gw_state(rms_stat, GW_LOGGEDIN, cfg->gwcall);
      syslog(LOG_DEBUG, "CMS login succeeded");
 
      /*
@@ -131,7 +131,7 @@ struct ust gateway(int s, char *gwcall, char *usercall,
       * Loop until one end of the connection goes away.
       */
      for (;;) {
-	  sbset_gw_state(rms_stat, GW_COMMWAIT, gwcall);
+	  sbset_gw_state(rms_stat, GW_COMMWAIT, cfg->gwcall);
 	  FD_ZERO(&read_fd);
 	  FD_SET(STDIN_FILENO, &read_fd);
 	  FD_SET(s, &read_fd);
@@ -162,7 +162,7 @@ struct ust gateway(int s, char *gwcall, char *usercall,
                     rc.errcode = 0;
                     sleep(1);
                     close(s);
-		    sbset_gw_state(rms_stat, GW_CONNECTED, gwcall);
+		    sbset_gw_state(rms_stat, GW_CONNECTED, cfg->gwcall);
                     return(rc);
 	       }
 
@@ -175,7 +175,7 @@ struct ust gateway(int s, char *gwcall, char *usercall,
 	   * analyze last 4 characters (EOL on telnet link is CR/LF)
 	   */
 	  if (FD_ISSET(s, &read_fd)) {
-	       sbset_gw_state(rms_stat, GW_SENDING, gwcall);
+	       sbset_gw_state(rms_stat, GW_SENDING, cfg->gwcall);
 	       while ((n = recv(s, buf, BUFLEN, 0)) > 0) {
 		    rc.bytes_sent += n;
 		    cp = buf;
@@ -294,7 +294,7 @@ struct ust gateway(int s, char *gwcall, char *usercall,
 	   * analyze last 3 characters (EOL on ax25 link is CR)
 	   */
 	  if (FD_ISSET(STDIN_FILENO, &read_fd)) {
-	       sbset_gw_state(rms_stat, GW_RECEIVING, gwcall);
+	       sbset_gw_state(rms_stat, GW_RECEIVING, cfg->gwcall);
 	       while ((n = read(STDIN_FILENO, buf, BUFLEN)) > 0) {
 		    rc.bytes_recv += n;
 		    cp = buf;
@@ -349,7 +349,7 @@ struct ust gateway(int s, char *gwcall, char *usercall,
 	       }
 	  }
 		
-	  sbset_gw_state(rms_stat, GW_COMMWAIT, gwcall);
+	  sbset_gw_state(rms_stat, GW_COMMWAIT, cfg->gwcall);
 
 	  if(loop > 0){
 	       sleep(1);
@@ -364,11 +364,11 @@ struct ust gateway(int s, char *gwcall, char *usercall,
 		    rc.errcode = 1; /* TimeOut */
 	       }
 	       close(s);
-	       sbset_gw_state(rms_stat, GW_CONNECTED, gwcall);
+	       sbset_gw_state(rms_stat, GW_CONNECTED, cfg->gwcall);
 	       return(rc);
 	  }
      }
 
-     sbset_gw_state(rms_stat, GW_CONNECTED, gwcall);
+     sbset_gw_state(rms_stat, GW_CONNECTED, cfg->gwcall);
      return(rc);
 }

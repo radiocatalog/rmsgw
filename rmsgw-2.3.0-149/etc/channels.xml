@@ -2,15 +2,16 @@
 <!DOCTYPE rmschannels [
   <!ELEMENT rmschannels (channel+)>
 
-  <!ELEMENT channel (basecall, callsign, gridsquare, frequency, mode,
+  <!ELEMENT channel (basecall, callsign, password, gridsquare, frequency, mode,
 		     autoonly, baud, power, height, gain, direction, hours,
-		     groupreference, statuschecker)>
+		     groupreference, servicecode, statuschecker)>
     <!ATTLIST channel name CDATA #REQUIRED>
     <!ATTLIST channel type CDATA #REQUIRED>
     <!ATTLIST channel active CDATA #REQUIRED>
 
   <!ELEMENT basecall (#PCDATA)>
   <!ELEMENT callsign (#PCDATA)>
+  <!ELEMENT password (#PCDATA)>
   <!ELEMENT gridsquare (#PCDATA)>
   <!ELEMENT frequency (#PCDATA)>
   <!ELEMENT mode (#PCDATA)>
@@ -29,6 +30,7 @@
   <channel name="radio" type="ax25" active="yes">
     <basecall>N0CALL</basecall>
     <callsign>N0CALL-10</callsign>
+    <password>password</password>
     <gridsquare>AA00AA</gridsquare>
     <frequency>144000000</frequency>
     <mode>0</mode>

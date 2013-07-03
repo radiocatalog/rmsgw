@@ -1,12 +1,12 @@
 /*
  *			s e s s i o n . c
- * $Revision: 131 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2011 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008-2011 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -26,7 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char svnid[] = "$Id: session.c 131 2011-11-28 19:31:57Z eckertb $";
+static char svnid[] = "$Id: session.c 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include <stdlib.h>
@@ -116,7 +116,7 @@ int cmsSession(cmsnode *the_cms, config *cfg, char *ax25port, char *usercall)
 
      time(&tstart);
      log_logon(usercall, ax25port, the_cms->cms_host);
-     userstat = gateway(cmsSock, cfg->gwcall, usercall,
+     userstat = gateway(cmsSock, cfg, usercall,
 			the_cms->cms_passwd, chnl);
      time(&tstop);
 

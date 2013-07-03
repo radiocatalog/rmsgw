@@ -1,12 +1,12 @@
 /*
  *			g e t c h a n . c
- * $Revision: 142 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2008 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -32,7 +32,7 @@
  *
  */
 #ifndef lint
-static char svnid[] = "$Id: getchan.c 142 2012-12-27 20:04:46Z eckertb $";
+static char svnid[] = "$Id: getchan.c 149 2013-07-03 02:01:55Z eckertb $";
 #endif
 
 
@@ -248,6 +248,12 @@ static int nextent(void)
 			 free(curent.ch_callsign);
 		    }
 		    curent.ch_callsign = content;
+	       } else if (!xmlStrcmp(child_node->name,
+				     (const xmlChar *)"password")) {
+		    if (curent.ch_password) {
+			 free(curent.ch_password);
+		    }
+		    curent.ch_password = content;
 	       } else if (!xmlStrcmp(child_node->name,
 				     (const xmlChar *)"gridsquare")) {
 		    if (curent.ch_gridsquare) {

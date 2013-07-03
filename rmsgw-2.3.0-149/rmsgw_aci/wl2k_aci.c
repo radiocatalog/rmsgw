@@ -1,12 +1,12 @@
 /*
  *			w l 2 k _ a c i . c
- * $Revision: 142 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2011 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008-2011 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -30,7 +30,7 @@
  *	channels for the gateway
  */
 #ifndef lint
-static char svnid[] = "$Id: wl2k_aci.c 142 2012-12-27 20:04:46Z eckertb $";
+static char svnid[] = "$Id: wl2k_aci.c 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include <stdlib.h>
@@ -134,13 +134,33 @@ int wl2k_aci(config *cfg, rms_status *sp)
 	  }
 
 	  /*
-	   * in no service code is defined, default it
+	   * if no service code is defined, default it
+	   *
+	   * NOTE: there is the potential for a memory leak with the way the xml
+	   * parsing works, in that if the servicecode is not required, there is
+	   * currently no effort done to free a previously allocated default that
+	   * was done here, since the code to free the servicecode memory in the
+	   * library will never be reached (see getchan.c in librms).
+	   *
+	   * Since the this is not a long running program, we'll ignore the potential
+	   * for a memory leak and live with it... for now.
 	   */
-	  if (chnl->ch_servicecode == NULL && strlen(chnl->ch_servicecode) <= 0) {
+	  if (chnl->ch_servicecode == NULL) {
+	       chnl->ch_servicecode = strdup(DFLT_SERVICECODE); /* need to allocate the string,
+								   since the library will free
+								   this on subsequent calls */
+	  } else if (strlen(chnl->ch_servicecode) <= 0) {
+	       /* may be bad assumption, but we'll assume we need to free
+		  previously allocated memory for the servicecode to set
+		  default */
+	       free(chnl->ch_servicecode);
+
+	       /* and set the default */
 	       chnl->ch_servicecode = strdup(DFLT_SERVICECODE); /* need to allocate the string,
 								   since the library will free
 								   this on subsequent calls */
 	  }
+
 	  chanstats.active++;
 	  syslog(LOG_INFO, "Channel: %s on %s (%s Hz, mode %s)",
 		 chnl->ch_callsign, chnl->ch_name,

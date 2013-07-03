@@ -1,8 +1,8 @@
 #
 #			M a k e f i l e
-# $Revision: 105 $
+# $Revision: 149 $
 # $Author: eckertb $
-# $Id: Makefile 105 2009-04-25 08:02:50Z eckertb $
+# $Id: Makefile 149 2013-07-03 02:01:55Z eckertb $
 #
 # RMS Gateway
 #
@@ -36,7 +36,7 @@ RMSLIBSRCS=	version.c syslogmap.c cmsconnect.c loadconfig.c \
 		cmslogin.c upcase.c downcase.c strcvt.c fgetline.c \
 		fgetlinecr.c err.c mapname.c sendrf.c printfile.c \
 		getchan.c set.c symbol.c var.c strtrim.c senddatagram.c \
-		shm.c statblock.c
+		shm.c statblock.c md5.c readln.c sglchallenge.c
 RMSLIBOBJS=	$(RMSLIBSRCS:.c=.o)
 
 DEFINES		:= $(PKG_DEFINES)

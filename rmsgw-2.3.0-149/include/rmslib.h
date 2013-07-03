@@ -1,12 +1,12 @@
 /*
  *			r m s l i b . h
- * $Revision: 142 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2009 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008-2009 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -29,7 +29,7 @@
 #define _rmslib_h	1
 
 #ifndef lint
-static char	_rmslib_h_svnid[] = "$Id: rmslib.h 142 2012-12-27 20:04:46Z eckertb $";
+static char	_rmslib_h_svnid[] = "$Id: rmslib.h 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include "set.h"
@@ -57,6 +57,18 @@ static char	_rmslib_h_svnid[] = "$Id: rmslib.h 142 2012-12-27 20:04:46Z eckertb 
 
 #ifndef STRNCMP
 #define STRNCMP(a, b)   (strncmp((a), (b), strlen(a)))
+#endif
+
+#ifndef DIM
+#define DIM(a)		(sizeof(a)/sizeof(*(a)))	/* length of array */
+#endif
+
+#ifndef CTRL
+#ifdef __STDC__
+#define CTRL(c)	(*(#c)&037)	/* inefficient but correct */
+#else
+#define CTRL(c)		('c' ^ 0x40)
+#endif
 #endif
 
 /*
@@ -122,6 +134,7 @@ typedef struct _channel {
      char *ch_active;	/* channel active indicator (yes/no) */
      char *ch_basecall;	/* base callsign of the gateway */
      char *ch_callsign;	/* callsign/ssid for the gw channel */
+     char *ch_password;	/* winlink secure gateway login password */
      char *ch_gridsquare;/*gridsquare of gateway */
      char *ch_frequency;/* the channel's frequency (in Hz) */
      char *ch_mode;	/* the "pactor" mode of the channel */
@@ -157,6 +170,10 @@ typedef struct _config {
      char *logmask;	/* syslog log maks */
      char *udpmsghost;	/* host to which UDP messages are sent */
      char *udpmsgport;	/* port/service for UDP message sending */
+     char *authmode;	/* the authorization mode for this gateway:
+			   SGL for Secure Gateway Login (new)
+			   TEL for CMS Telnet (old) - 2013-05-04 - this mode will go away soon */
+     char *gwpasswd;	/* the gateway's password (the sysop's password for the gw station) */
 } config;
 
 /*
@@ -180,8 +197,10 @@ extern char *fgetline(char *s, int size, FILE *fp);
 extern char *fgetlinecr(char *s, int size, FILE *fp);
 extern int printfile(char *file);
 
+extern int readln(register int fd, register char *buf, register int maxlen, unsigned char eol);
 extern int cmsConnect(cmsnode *c);
-extern int cmslogin(int sd, channel *c, char *usercall, char *passwd);
+extern char *sgl_challenge_response(char *challenge, char *pass);
+extern int cmslogin(int sd, config *cfg, channel *c, char *usercall, char *passwd);
 extern int setcmsstat(cmsnode *p);
 
 extern int mappriority(char *pri);
@@ -218,5 +237,70 @@ extern void sbset_gw_usercall(rms_status *p, char *gwcall, char *usercall);
 extern void sb_incr_gw_connects(rms_status *p, char *gwcall);
 extern void sb_add_gw_bytes_in(rms_status *p, char *gwcall, long count);
 extern void sb_add_gw_bytes_out(rms_status *p, char *gwcall, long count);
+
+/*
+ * general type definitions
+ */
+/*
+ * Type definitions
+ */
+#ifndef TRUE
+typedef	int		bool;		/* boolean flag */
+#define TRUE		1
+#define	FALSE		0
+#endif
+
+/*
+ * GENERAL CONSTANTS
+ */
+
+#define	SUCCEED		0		/* for use in exit() and retruns */
+#define	FAIL		-1		/* for exit() & error returns */
+
+/*
+ * named characters
+ */
+#define A_NUL		'\000'
+#define EOS		A_NUL
+#define A_SOH		'\001'
+#define A_STX		'\002'
+#define A_ETX		'\003'
+#define A_EOT		'\004'
+#define A_ENQ		'\005'
+#define A_ACK		'\006'
+#define A_BEL		'\007'
+#define A_BS		'\010'
+#define A_HT		'\011'
+#define TAB		A_HT
+#define HTAB		A_HT
+#define A_LF		'\012'
+#define NEWLINE		A_LF
+#define A_VT		'\013'
+#define VTAB		A_VT
+#define A_FF		'\014'
+#define FORMFEED	A_FF
+#define A_CR		'\015'
+#define RETURN		A_CR
+#define A_SO		'\016'
+#define A_SI		'\017'
+#define A_DLE		'\020'
+#define A_DC1		'\021'
+#define A_DC2		'\022'
+#define A_DC3		'\023'
+#define A_DC4		'\024'
+#define A_NAK		'\025'
+#define A_SYN		'\026'
+#define A_ETB		'\027'
+#define A_CAN		'\030'
+#define A_EM		'\031'
+#define A_SUB		'\032'
+#define A_ESC		'\033'
+#define A_FS		'\034'
+#define A_GS		'\035'
+#define A_RS		'\036'
+#define A_US		'\037'
+#define BLANK		' '
+#define SPACE		BLANK
+#define A_DEL		'\177'
 
 #endif /* _rmslib_h */

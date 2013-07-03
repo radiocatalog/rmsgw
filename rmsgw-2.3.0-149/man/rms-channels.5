@@ -5,9 +5,9 @@
 .\" ** 'tbl rms-channels.5 | nroff -man | less'
 .\"
 .\"			r m s - c h a n n e l s . 5
-.\" $Revision: 142 $
+.\" $Revision: 149 $
 .\" $Author: eckertb $
-.\" $Id: rms-channels.5 142 2012-12-27 20:04:46Z eckertb $
+.\" $Id: rms-channels.5 149 2013-07-03 02:01:55Z eckertb $
 .\"
 .\" RMS Gateway
 .\"
@@ -103,6 +103,7 @@ W3SG-10:
   <channel name="radio" type="ax25" active="yes">
     <basecall>W3SG</basecall>
     <callsign>W3SG-10</callsign>
+    <password>PASSWORD</password>
     <gridsquare>FN20DT</gridsquare>
     <frequency>145550000</frequency>
     <mode>0</mode>
@@ -221,12 +222,19 @@ by
 The
 .B basecall
 is the base callsign associated with the channel, and be
-your gateway's callsign as register in the Winlink 2000 system,
+your gateway's callsign as registered in the Winlink 2000 system,
 without and SSID.
 .SS callsign
 .B Callsign
 defines the full callsign, with SSID, for the channel. This must be
 unique for all active channel definitions in the file.
+.SS password
+The
+.B password
+is your sysop password as registered in the Winlink 2000 system.
+This password is required to be present and correct for the
+Secure Gateway Logon to work and the gateway station to successfully
+connect to any of the CMS's.
 .SS gridsquare
 The Maidenhead grid square for the location of the channel is defined
 in the

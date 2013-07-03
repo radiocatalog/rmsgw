@@ -1,6 +1,6 @@
 /*
  *			r m s . h
- * $Revision: 142 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
@@ -34,7 +34,7 @@
 #define _rms_h	1
 
 #ifndef lint
-static char _rms_h_svnid[] = "$Id: rms.h 142 2012-12-27 20:04:46Z eckertb $";
+static char _rms_h_svnid[] = "$Id: rms.h 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include <stdio.h>
@@ -77,6 +77,14 @@ struct ust {
      unsigned long bytes_sent; 
      unsigned long bytes_recv; 
 };
+
+/*
+ * Secure Gateway Login state definitions
+ */
+typedef enum { SGL_CALLSIGN, SGL_CALLSIGNFAIL,
+	       SGL_CHALLENGE, SGL_CHALLENGEFAIL,
+	       SGL_RESPONSESENT,
+	       SGL_LOGINCOMPLETE, SGL_BADSTATE } SGLSTATE;
 
 /*
  * gateway error returns (ust structure rc codes)

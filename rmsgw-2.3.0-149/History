@@ -1,9 +1,9 @@
 /*
  * RMS Gateway
- * $Id: History 142 2012-12-27 20:04:46Z eckertb $
+ * $Id: History 149 2013-07-03 02:01:55Z eckertb $
  *
- * Copyright (c) 2004-2011 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008-2011 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2012 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2012 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -24,6 +24,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Revision history:
+ * 20130702:
+ * - Release 2.3.0
+ * - initial implementation of Secure Gateway Logon, which will
+ *   replace the onld CMS TELNET login process shortly after
+ *   this release.
+ *
+ * 20121230:
+ * - minor fix to channels.xml to include servicecode in list of
+ *   elements
+ *
+ * 20121228:
+ * - Release 2.2.0
+ *
  * 20121227:
  * - added new udp checkin format which now has a service code
  *   value (defined in channels.xml by the sysop; it has a default

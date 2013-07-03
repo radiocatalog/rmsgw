@@ -1,12 +1,12 @@
 /*
  *			r m s g w . h
- * $Revision: 105 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2008 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -30,7 +30,7 @@
 #define _rmsgw_h	1
 
 #ifndef lint
-static char	_rmsgw_h_svnid[] = "$Id: rmsgw.h 105 2009-04-25 08:02:50Z eckertb $";
+static char	_rmsgw_h_svnid[] = "$Id: rmsgw.h 149 2013-07-03 02:01:55Z eckertb $";
 #endif /* lint */
 
 #include <stdio.h>
@@ -49,7 +49,7 @@ extern void greet(int fd, config *cfg);
 extern int banner(int fd, char *bfile);
 extern int cmsSession(cmsnode *the_cms, config *cfg,
 		      char *ax25port, char *usercall);
-extern struct ust gateway(int s, char *gwcall, char *usercall, char *passwd, channel *chnl);
+extern struct ust gateway(int s, config *cfg, char *usercall, char *passwd, channel *chnl);
 extern void log_logon(char *usercall, char *port, char *hostname);
 extern void log_logout(char *usercall, struct ust userstat,
 		       time_t tstart, time_t tstop);

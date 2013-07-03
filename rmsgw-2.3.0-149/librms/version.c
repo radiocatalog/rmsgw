@@ -1,12 +1,12 @@
 /*
  *			v e r s i o n . c
- * $Revision: 143 $
+ * $Revision: 149 $
  * $Author: eckertb $
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2012 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008-2012 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -37,9 +37,9 @@
 version_blk version = {
      "Linux RMS Gateway",
      "RMS Gateway",
-     "2.2.0",
-     "$Revision: 143 $",
-     "$Date: 2012-12-28 09:53:59 -0500 (Fri, 28 Dec 2012) $",
+     "2.3.0",
+     "$Revision: 149 $",
+     "$Date: 2013-07-02 22:01:55 -0400 (Tue, 02 Jul 2013) $",
      "$Author: eckertb $",
-     "$Id: version.c 143 2012-12-28 14:53:59Z eckertb $",
+     "$Id: version.c 149 2013-07-03 02:01:55Z eckertb $",
 };

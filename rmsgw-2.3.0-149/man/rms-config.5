@@ -1,8 +1,8 @@
 .\"
 .\"			r m s - c o n f i g . 5
-.\" $Revision: 136 $
+.\" $Revision: 149 $
 .\" $Author: eckertb $
-.\" $Id: rms-config.5 136 2011-12-01 08:28:44Z eckertb $
+.\" $Id: rms-config.5 149 2013-07-03 02:01:55Z eckertb $
 .\"
 .\" RMS Gateway
 .\"
@@ -60,6 +60,17 @@ be set to the callsign
 .I and
 the SSID as regsited in the Winlink network. To do otherwise will
 generate erroneous status and version reports in the system.
+.TP AUTHMODE
+The AUTHMODE is set to either
+.I SGL
+for Secure Gateway Logon, or
+.I TEL
+for the old TELNET logon method.
+As of June 30, 2013, your implementation should be
+.I only
+for a Secure Gateway Logon.
+The TELNET will cease to be supported sometime shortly after
+June 30, 2013.
 .TP
 .B GRIDSQUARE
 Sets the Maidenhead Gridsquare Locator for the gateway. E.g.:
