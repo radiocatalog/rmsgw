@@ -3,9 +3,9 @@ Linux RMS Gateway Installation.
 Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
 Copyright (c) 2008-2013 Brian R. Eckert - W3SG
 
-$Revision: 149 $
+$Revision: 151 $
 $Author: eckertb $
-$Id: INSTALLING 149 2013-07-03 02:01:55Z eckertb $
+$Id: INSTALLING 151 2013-07-04 14:22:24Z eckertb $
 
 This file is free documentation.
 
@@ -196,6 +196,22 @@ LOGMASK should be set to the desired priority for the level of messages to
 be logged via syslog. The default of 'INFO' is probably fine for most
 installations. The possible values, in order for highest to lowest priority
 are: emerg, alert, crit, err, warning, notice, info, and debug.
+
+CHANNELFILE must be set to the location of your channels.xml file, which
+contains all the information about the gateway's channel registrations
+and status updating. In addition, you must be sure to configure the correct
+password for your gateway (for secure login) in each channel definition
+
+BANNERFILE is set to the location of the the gateway's greeting banner
+text. The contents of that file are sent when a client connects to your
+gateway. This file must be customized as well (see below).
+
+AUTHMODE sets the the authorization mode for the gateway. After June 30, 2013,
+all gateways need to be running version 2.3 or later, and set their AUTHMODE
+to SQL (for Secure Gateway Logon). For you gateway to connnect to the Winlink
+system, you must obtain a gateway station authorization.
+Details can be found on the Winlink website here:
+    http://www.winlink.org/SysopSoftware
 
 In the current version of the gateway, setting a priority of 'emerg'
 effectively turns off logging, although is no logging whatsoever was desired,

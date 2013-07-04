@@ -1,6 +1,6 @@
 /*
  *			c m s l o g i n . c
- * $Revision: 149 $
+ * $Revision: 151 $
  * $Author: eckertb $
  *
  * RMS Gateway
@@ -26,7 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char svnid[] = "$Id: cmslogin.c 149 2013-07-03 02:01:55Z eckertb $";
+static char svnid[] = "$Id: cmslogin.c 151 2013-07-04 14:22:24Z eckertb $";
 #endif /* lint */
 
 #define _GNU_SOURCE
@@ -394,8 +394,10 @@ int cmslogin(int sd, config *cfg, channel *c, char *usercall, char *cmspasswd)
       * Secure Gateway Login or CMS Telenet Login (2013-05-04 - CMS Telenet will go away very soon)
       */
      if (STREQUAL(cfg->authmode, "SGL")) {
+	  syslog(LOG_INFO, "*** Secure Gateway Logon");
 	  rc = sglProcess(sd, c->ch_password, usercall, c->ch_callsign);
      } else { /* treat anything else as the old telnet login */
+	  syslog(LOG_INFO, "*** CMS Telenet Logon");
 	  rc = telnetProcess(sd, cmspasswd, usercall, c->ch_callsign, c->ch_frequency, c->ch_mode);
      }
 

@@ -1,6 +1,6 @@
 /*
  *			m a p n a m e . c
- * $Revision: 76 $
+ * $Revision: 150 $
  * $Author: eckertb $
  *
  * This module originally:
@@ -10,8 +10,8 @@
  *
  * RMS Gateway
  *
- * Copyright (c) 2004-2008 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -31,7 +31,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char svnid[] = "$Id: mapname.c 76 2009-01-28 20:26:20Z eckertb $";
+static char svnid[] = "$Id: mapname.c 150 2013-07-04 01:05:41Z eckertb $";
 #endif
 
 #include <stdio.h>
@@ -142,13 +142,13 @@ int fmapname(const char *mapfile, char **logical, char ***physical)
 	  *lp != NULL; pp++, map_logical = *++lp) {
 	  rewind(mfp);
 
-	  sprintf(namebuf, "%s=", *lp);
+	  snprintf(namebuf, sizeof(namebuf), "%s=", *lp);
 
 	  /*
 	   * search for logical name match
 	   */
 	  while ((ebp = fgetline(entrybuf, sizeof(entrybuf), mfp)) != NULL) {
-	       
+	       strtrim(entrybuf, entrybuf, " \t", 1);
 	       if (!strncmp(namebuf, entrybuf, strlen(namebuf)))
 		    break;
 	  }

@@ -1,8 +1,8 @@
 .\"
 .\"			r m s - c o n f i g . 5
-.\" $Revision: 149 $
+.\" $Revision: 151 $
 .\" $Author: eckertb $
-.\" $Id: rms-config.5 149 2013-07-03 02:01:55Z eckertb $
+.\" $Id: rms-config.5 151 2013-07-04 14:22:24Z eckertb $
 .\"
 .\" RMS Gateway
 .\"
@@ -60,8 +60,9 @@ be set to the callsign
 .I and
 the SSID as regsited in the Winlink network. To do otherwise will
 generate erroneous status and version reports in the system.
-.TP AUTHMODE
-The AUTHMODE is set to either
+.TP
+.B AUTHMODE
+AUTHMODE is set to either
 .I SGL
 for Secure Gateway Logon, or
 .I TEL
@@ -145,6 +146,7 @@ CHANNELFILE=/etc/rmsgw/channels.xml
 BANNERFILE=/etc/rmsgw/banner
 LOGFACILITY=LOCAL0
 LOGMASK=DEBUG
+AUTHMODE=SGL
 .fi
 .SH FILES
 .TP

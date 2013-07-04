@@ -1,6 +1,6 @@
 /*
  *			r m s g w . c
- * $Revision: 131 $
+ * $Revision: 151 $
  * $Author: eckertb $
  *
  * Linux RMS Gateway
@@ -26,7 +26,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 #ifndef lint
-static char svnid[] = "$Id: rmsgw.c 131 2011-11-28 19:31:57Z eckertb $";
+static char svnid[] = "$Id: rmsgw.c 151 2013-07-04 14:22:24Z eckertb $";
 #endif /* lint */
 
 #include <stdlib.h>
@@ -240,6 +240,8 @@ int main(int argc, char **argv)
 	  closelog();
 	  exit(1);
      }
+
+     syslog(LOG_INFO, "Gateway AUTHMODE = [%s]", cfg->authmode);
 
      /*
       * update status block - set initial condition

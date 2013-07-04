@@ -1,9 +1,9 @@
 /*
  * RMS Gateway
- * $Id: History 149 2013-07-03 02:01:55Z eckertb $
+ * $Id: History 151 2013-07-04 14:22:24Z eckertb $
  *
- * Copyright (c) 2004-2012 Hans-J. Barthen - DL5DI
- * Copyright (c) 2008-2012 Brian R. Eckert - W3SG
+ * Copyright (c) 2004-2013 Hans-J. Barthen - DL5DI
+ * Copyright (c) 2008-2013 Brian R. Eckert - W3SG
  *
  * Questions or problems regarding this program can be emailed
  * to linux-rmsgw@w3sg.org
@@ -24,8 +24,22 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  * Revision history:
- * 20130702:
+ * 20130704:
  * - Release 2.3.0
+ * - Updated missing information in INSTALLING and manpages
+ * - tweaked log messages so that DEBUG logging is not necessary
+ *   to know which logon mode is being used
+ *
+ * 20130703:
+ * - Release Candidate 2 for 2.3.0
+ * - Trim trailing whitespace from any config items in
+ *   gateway.conf
+ * - log the AUTHMODE setting during gateway startup
+ *   (this is a short-lived need, but may help with
+ *    debugging during the upgrade period)
+ *
+ * 20130702:
+ * - Release Candidate 1 for 2.3.0
  * - initial implementation of Secure Gateway Logon, which will
  *   replace the onld CMS TELNET login process shortly after
  *   this release.
