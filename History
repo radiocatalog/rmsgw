@@ -1,6 +1,6 @@
 /*
  * RMS Gateway
- * $Id: History 179 2014-10-30 10:59:18Z eckertb $
+ * $Id: History 182 2014-11-03 12:26:24Z eckertb $
  *
  * Copyright (c) 2004-2014 Hans-J. Barthen - DL5DI
  * Copyright (c) 2008-2014 Brian R. Eckert - W3SG
@@ -119,6 +119,9 @@
  * 20140311:
  * - created man pages for the sysop maintenance commands
  * - minor change to exit status behavior of updatesysop.py
+ *
+ * 20140103:
+ * - fixed namespace in base channels.xml used for new installs
  *
  * 20131215:
  * - created script to install the sysop maintenance functions

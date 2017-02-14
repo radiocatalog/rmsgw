@@ -32,10 +32,10 @@
 static char	_rmslib_h_svnid[] = "$Id: rmslib.h 176 2014-10-27 09:07:54Z eckertb $";
 #endif /* lint */
 
+#include <stdbool.h>
 #include "set.h"
 #include "rms.h"
 #include "rmsshm.h"
-#include <stdbool.h>
 
 /*
  * macros
@@ -75,8 +75,8 @@ static char	_rmslib_h_svnid[] = "$Id: rmslib.h 176 2014-10-27 09:07:54Z eckertb 
 /*
  * general type definitions
  */
+
 /*
- * Type definitions
  * package version structure
  */
 typedef struct _version {
