@@ -34,6 +34,7 @@
  * - Add ncurses to required build packages
  * - Fix rmschanstat because ifconfig output changed
  * - update channels.xml file.
+ * - release 2.4.1
  *
  * 20141030:
  * - additional updates to installing
